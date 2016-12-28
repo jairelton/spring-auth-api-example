@@ -29,7 +29,9 @@ public class User extends BasicModel {
 
     @NotNull
     private String name;
+    @NotNull
     private String email;
+    @NotNull
     private String password;
 
     @Temporal(TemporalType.TIMESTAMP)

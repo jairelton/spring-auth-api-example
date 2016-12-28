@@ -11,5 +11,5 @@ import io.jbatista.springauth.model.User;
  * @author jbatista
  */
 public interface UserDao extends DataAccessObject<User, String> {
-
+	public User findByEmail(String email);
 }

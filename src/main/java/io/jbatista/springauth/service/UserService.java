@@ -12,12 +12,12 @@ import io.jbatista.springauth.model.User;
  */
 public interface UserService {
     /**
-     * Saves (insert or update) a user.
+     * Inserts a new user.
      * 
      * @param user User to be saved.
      * @return Newly saved user.
      */
-    public User saveUser(User user);
+    public User createUser(User user);
 
     /**
      * Validates the given login information and retrieves the logged in user.
