@@ -17,7 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @author jbatista
  */
 @MappedSuperclass
-public class BasicModel implements Serializable {
+public abstract class BasicModel implements Serializable {
     private static final long serialVersionUID = 3120147111117554332L;
 
     @Id

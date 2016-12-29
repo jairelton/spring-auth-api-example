@@ -23,7 +23,7 @@ public class UserJpaDao extends GenericJpaDao<User, String> implements UserDao {
 	public User findByEmail(String email) {
 		User user;
 
-		TypedQuery<User> query = getEntityManager().createQuery("from User u where u.email = :email", User.class);
+		TypedQuery<User> query = getEntityManager().createQuery("from User u where lower(u.email) = lower(:email)", User.class);
 		
 		query.setParameter("email", email);
 		

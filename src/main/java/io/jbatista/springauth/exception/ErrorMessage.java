@@ -6,6 +6,8 @@ package io.jbatista.springauth.exception;
 import java.io.Serializable;
 
 /**
+ * Error message pojo.
+ * 
  * @author jbatista
  *
  */
