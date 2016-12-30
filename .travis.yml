@@ -18,6 +18,7 @@ before_install:
 - if [ ! -d "${HOME}/google-cloud-sdk" ]; then
     curl https://sdk.cloud.google.com | bash;
   fi
+- ls -l
 - gcloud version
 - gcloud components install kubectl -q
 - gcloud auth activate-service-account --key-file gcloud-credentials.json
