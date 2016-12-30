@@ -4,9 +4,9 @@ services:
 - docker
 jdk:
 - oraclejdk8
-cache:
-  directories:
-    - "$HOME/google-cloud-sdk/"
+#cache:
+#  directories:
+#    - "$HOME/google-cloud-sdk/"
 env:
   global:
   - PROJECT_NAME='spring-auth-api'
@@ -15,6 +15,7 @@ env:
 before_install:
 - openssl aes-256-cbc -K $encrypted_70489a482a02_key -iv $encrypted_70489a482a02_iv
   -in gcloud-credentials.json.enc -out gcloud-credentials.json -d
+- sudo rm -rf $GCHOME
 - cd $HOME
 - pwd
 - curl https://sdk.cloud.google.com | bash
