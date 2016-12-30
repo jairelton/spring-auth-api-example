@@ -1,3 +1,12 @@
+sudo: required
 language: java
+services:
+  - docker
 jdk:
-- oraclejdk8
+  - oraclejdk8
+script:
+  - gradle release
+  - cp Dockerfile build/libs/Dockerfile
+  - cp application.properties build/libs/application.properties
+  - cd build/libs
+  - docker build -t spring-auth-api-example .
