@@ -28,6 +28,8 @@ script:
 - cd build/libs
 - docker build -t jbatista/spring-auth-api-example .
 - docker tag "jbatista/${PROJECT_NAME}-example" "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}-example"
+- pwd
+- ls -l
 - $GCHOME/bin/gcloud auth activate-service-account --key-file gcloud-credentials.json
 - $GCHOME/bin/gcloud config set project "${PROJECT_NAME}-project"
 - $GCHOME/bin/gcloud container clusters get-credentials spring-auth-api-cluster --zone us-east1-d --project "${PROJECT_NAME}-project"
