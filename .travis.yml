@@ -7,7 +7,7 @@ jdk:
 before_install:
 - openssl aes-256-cbc -K $encrypted_70489a482a02_key -iv $encrypted_70489a482a02_iv
   -in gcloud-credentials.json.enc -out gcloud-credentials.json -d
-- sudo bash -l gcloud components update kubectl
+- sudo gcloud components install kubectl -q
 - gcloud auth activate-service-account --key-file gcloud-credentials.json
 - gcloud config set project 'spring-auth-api-project'
 - gcloud container clusters get-credentials spring-auth-api-cluster --zone us-east1-d --project spring-auth-api-project
