@@ -9,6 +9,7 @@ env:
   - PROJECT_NAME='spring-auth-api'
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
   - GCHOME=$HOME/google-cloud-sdk
+  - GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud-credentials.json
 #cache:
 #  directories:
     #- $GCHOME
@@ -18,8 +19,7 @@ before_install:
 - if [ -d $GCHOME ]; then
     rm -rf $GCHOME;
   fi
-- curl https://sdk.cloud.google.com | bash;  
-- $GCHOME/bin/gcloud version
+- curl https://sdk.cloud.google.com | bash;
 - $GCHOME/bin/gcloud components install kubectl -q
 script:
 - $GCHOME/bin/gcloud auth activate-service-account --key-file gcloud-credentials.json
@@ -27,8 +27,8 @@ script:
 - cp Dockerfile build/libs/Dockerfile
 - cp application.properties build/libs/application.properties
 - cd build/libs
-- docker build -t jbatista/spring-auth-api-example .
-- docker tag "jbatista/${PROJECT_NAME}-example" "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}-example"
+- docker build -t jbatista/${PROJECT_NAME} .
+- docker tag "jbatista/${PROJECT_NAME}" "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}"
 - $GCHOME/bin/gcloud container clusters get-credentials spring-auth-api-cluster --zone us-east1-d --project "${PROJECT_NAME}-project"
-- $GCHOME/bin/gcloud docker -- push "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}-example"
-- $GCHOME/bin/kubectl run web-node2 --image="gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}-example" --port=80
+- $GCHOME/bin/gcloud docker -- push "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}"
+- $GCHOME/bin/kubectl set image deployment/web-node web-node=gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}
