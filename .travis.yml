@@ -9,7 +9,7 @@ before_install:
   -in gcloud-credentials.json.enc -out gcloud-credentials.json -d
 - sudo gcloud components install kubectl -q
 - sudo gcloud auth activate-service-account --key-file gcloud-credentials.json
-- gcloud config set project 'spring-auth-api-project'
+- sudo gcloud config set project 'spring-auth-api-project'
 - sudo gcloud container clusters get-credentials spring-auth-api-cluster --zone us-east1-d --project spring-auth-api-project
 script:
 - cp Dockerfile build/libs/Dockerfile
