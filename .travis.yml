@@ -21,9 +21,6 @@ before_install:
 - curl https://sdk.cloud.google.com | bash;  
 - $GCHOME/bin/gcloud version
 - $GCHOME/bin/gcloud components install kubectl -q
-- $GCHOME/bin/gcloud auth activate-service-account --key-file gcloud-credentials.json
-- $GCHOME/bin/gcloud config set project "${PROJECT_NAME}-project"
-- $GCHOME/bin/gcloud container clusters get-credentials spring-auth-api-cluster --zone us-east1-d --project "${PROJECT_NAME}-project"
 script:
 - ls -l
 - cp Dockerfile build/libs/Dockerfile
@@ -31,5 +28,9 @@ script:
 - cd build/libs
 - docker build -t jbatista/spring-auth-api-example .
 - docker tag "jbatista/${PROJECT_NAME}-example" "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}-example"
+- $GCHOME/bin/gcloud auth activate-service-account --key-file gcloud-credentials.json
+- $GCHOME/bin/gcloud config set project "${PROJECT_NAME}-project"
+- $GCHOME/bin/gcloud container clusters get-credentials spring-auth-api-cluster --zone us-east1-d --project "${PROJECT_NAME}-project"
+- $GCHOME/bin/gcloud auth activate-service-account --key-file gcloud-credentials.json
 - $GCHOME/bin/gcloud docker -- push "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}-example"
 - $GCHOME/bin/kubectl run web-node --image="gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}-example" --port=80
