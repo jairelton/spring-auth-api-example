@@ -4,25 +4,30 @@ services:
 - docker
 jdk:
 - oraclejdk8
-even:
+cache:
+  directories:
+    - "$HOME/google-cloud-sdk/"
+env:
   global:
-  - PATH="${HOME}/google-cloud-sdk/bin:${PATH}"
+  - PATH="$PATH:${HOME}/google-cloud-sdk/bin:${PATH}"
   - PROJECT_NAME='spring-auth-api'
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
 - openssl aes-256-cbc -K $encrypted_70489a482a02_key -iv $encrypted_70489a482a02_iv
   -in gcloud-credentials.json.enc -out gcloud-credentials.json -d
-- if [ ! -d "${HOME}/google-cloud-sdk" ]; then curl https://sdk.cloud.google.com | bash; fi
-- bash -l ls -l
+- if [ ! -d "${HOME}/google-cloud-sdk" ]; then
+    curl https://sdk.cloud.google.com | bash;
+  fi
 - bash -l ./gcloud.sh --quiet version
-- ./gcloud.sh components install kubectl -q
-- ./gcloud auth activate-service-account --key-file gcloud-credentials.json
-- ./gcloud config set project "${PROJECT_NAME}-project"
-- ./gcloud container clusters get-credentials spring-auth-api-cluster --zone us-east1-d --project "${PROJECT_NAME}-project"
+- gcloud components install kubectl -q
+- gcloud auth activate-service-account --key-file gcloud-credentials.json
+- gcloud config set project "${PROJECT_NAME}-project"
+- gcloud container clusters get-credentials spring-auth-api-cluster --zone us-east1-d --project "${PROJECT_NAME}-project"
 script:
 - cp Dockerfile build/libs/Dockerfile
 - cp application.properties build/libs/application.properties
 - cd build/libs
 - docker build -t jbatista/spring-auth-api-example .
 - docker tag "jbatista/${PROJECT_NAME}-example gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}-example"
-- ./gcloud.sh docker -- push "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}-example"
-- ./kubectl run web-node --image="gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}-example" --port=80
+- gcloud.sh docker -- push "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}-example"
+- kubectl run web-node --image="gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}-example" --port=80
