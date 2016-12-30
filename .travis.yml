@@ -21,6 +21,8 @@ before_install:
   fi
 - curl https://sdk.cloud.google.com | bash;
 - $GCHOME/bin/gcloud components install kubectl -q
+- pwd
+- ls -l
 script:
 - $GCHOME/bin/gcloud auth activate-service-account --key-file gcloud-credentials.json
 - $GCHOME/bin/gcloud config set project "${PROJECT_NAME}-project"
