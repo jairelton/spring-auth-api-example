@@ -9,15 +9,16 @@ env:
   - PROJECT_NAME='spring-auth-api'
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
   - GCHOME=$HOME/google-cloud-sdk
-cache:
-  directories:
-    - $GCHOME
+#cache:
+#  directories:
+    #- $GCHOME
 before_install:
 - openssl aes-256-cbc -K $encrypted_70489a482a02_key -iv $encrypted_70489a482a02_iv
   -in gcloud-credentials.json.enc -out gcloud-credentials.json -d
-- if [ ! -d $GCHOME ]; then
-     curl https://sdk.cloud.google.com | bash;
+- if [ -d $GCHOME ]; then
+    rm -rf $GCHOME;
   fi
+- curl https://sdk.cloud.google.com | bash;  
 - $GCHOME/bin/gcloud version
 - $GCHOME/bin/gcloud components install kubectl -q
 - $GCHOME/bin/gcloud auth activate-service-account --key-file gcloud-credentials.json
