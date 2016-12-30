@@ -9,7 +9,7 @@ env:
   - PROJECT_NAME='spring-auth-api'
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
   - GCHOME=$HOME/google-cloud-sdk
-  - GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud-credentials.json
+  - GOOGLE_APPLICATION_CREDENTIALS=$TRAVIS_BUILD_DIR/gcloud-credentials.json
 #cache:
 #  directories:
     #- $GCHOME
@@ -24,6 +24,7 @@ before_install:
 - pwd
 - ls -l
 script:
+- echo $GOOGLE_APPLICATION_CREDENTIALS
 - $GCHOME/bin/gcloud auth activate-service-account --key-file gcloud-credentials.json
 - $GCHOME/bin/gcloud config set project "${PROJECT_NAME}-project"
 - cp Dockerfile build/libs/Dockerfile
