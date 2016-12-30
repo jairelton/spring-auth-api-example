@@ -53,6 +53,6 @@ public class RestErrorController extends BasicErrorController {
         Map<String, Object> attributes = getErrorAttributes(request, false);
         HttpStatus status = getStatus(request);
         String message = (String) attributes.get("message");
-        return new ResponseEntity<Map<String, Object>>(Collections.singletonMap("message", message), status);
+        return new ResponseEntity<Map<String, Object>>(Collections.singletonMap("message2", message), status);
     }
 }

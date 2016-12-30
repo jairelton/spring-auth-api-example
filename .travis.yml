@@ -34,4 +34,4 @@ script:
 - docker tag "jbatista/${PROJECT_NAME}" "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}"
 - $GCHOME/bin/gcloud container clusters get-credentials spring-auth-api-cluster --zone us-east1-d --project "${PROJECT_NAME}-project"
 - $GCHOME/bin/gcloud docker -- push "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}"
-- $GCHOME/bin/kubectl set image deployment/web-node web-node=gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}
+- $GCHOME/bin/kubectl set image deployment/web-node web-node=gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}:latest
