@@ -5,7 +5,6 @@ services:
 jdk:
   - oraclejdk8
 script:
-  - gradle release
   - cp Dockerfile build/libs/Dockerfile
   - cp application.properties build/libs/application.properties
   - cd build/libs
