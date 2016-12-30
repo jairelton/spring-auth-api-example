@@ -16,4 +16,3 @@ script:
 - docker tag jbatista/spring-auth-api-example gcr.io/spring-auth-api-project/spring-auth-api-example
 - gcloud config set project 'spring-auth-api-project'
 - gcloud docker -- push gcr.io/spring-auth-api-project/spring-auth-api-example
-
