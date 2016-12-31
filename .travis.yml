@@ -10,9 +10,6 @@ env:
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
   - GCHOME=$HOME/google-cloud-sdk
   - GOOGLE_APPLICATION_CREDENTIALS=$TRAVIS_BUILD_DIR/gcloud-credentials.json
-#cache:
-#  directories:
-    #- $GCHOME
 before_install:
 - openssl aes-256-cbc -K $encrypted_70489a482a02_key -iv $encrypted_70489a482a02_iv
   -in gcloud-credentials.json.enc -out gcloud-credentials.json -d
@@ -26,12 +23,12 @@ before_install:
 script:
 - echo $GOOGLE_APPLICATION_CREDENTIALS
 - $GCHOME/bin/gcloud auth activate-service-account --key-file gcloud-credentials.json
-- $GCHOME/bin/gcloud config set project "${PROJECT_NAME}-project"
+#- $GCHOME/bin/gcloud config set project "${PROJECT_NAME}-project"
 - cp Dockerfile build/libs/Dockerfile
 - cp application.properties build/libs/application.properties
 - cd build/libs
 - docker build -t jbatista/${PROJECT_NAME} .
 - docker tag "jbatista/${PROJECT_NAME}" "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}"
-- $GCHOME/bin/gcloud container clusters get-credentials spring-auth-api-cluster --zone us-east1-d --project "${PROJECT_NAME}-project"
+#- $GCHOME/bin/gcloud container clusters get-credentials spring-auth-api-cluster --zone us-east1-d --project "${PROJECT_NAME}-project"
 - $GCHOME/bin/gcloud docker -- push "gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}"
 - $GCHOME/bin/kubectl set image deployment/web-node web-node=gcr.io/${PROJECT_NAME}-project/${PROJECT_NAME}:latest
