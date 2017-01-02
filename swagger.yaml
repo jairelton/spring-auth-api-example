@@ -1,0 +1,172 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Spring Auth API Example
+  description: Spring Auth API Example
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /jairelton/spring-auth-api-example/1.0.0
+# schemes:
+#  - http
+produces:
+ - application/json
+paths:
+  /users:
+    post:
+      description: Creates a new user
+      parameters:
+        - in: body
+          name: body
+          description: User details
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        201:
+          description: Successful operation.
+        400:
+          description: Invalid user data.
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+  /users/{userId}:
+    get:
+      description: Get the user profile.
+      parameters:
+        - in: path
+          name: userId
+          description: User ID
+          required: true
+          type: string
+          format: uuid
+        - in: header
+          name: Authorization
+          description: JWT bearer token
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/User'
+        401:
+          description: Invalid token or user don't have permission to perform this operation.
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+    put:
+      description: Updates an existing user
+      parameters:
+        - in: path
+          name: userId
+          description: User ID
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: body
+          description: User details
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+        - in: header
+          name: Authorization
+          description: JWT bearer token
+          required: true
+          type: string
+      responses:
+        204:
+          description: Successful operation.
+        401:
+          description: Invalid token or user don't have permission to perform this operation.
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+            
+  /login:
+    post:
+      description: Authenticates an user.
+      parameters:
+        - in: body
+          name: body
+          description: User credentials.
+          required: true
+          schema:
+            $ref: "#/definitions/Credentials"
+      responses:
+        200:
+          description: Successful operation.
+          schema:
+            $ref: '#/definitions/User'
+        401:
+          description: Invalid credentials.
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+        description: User ID
+      name:
+        type: string
+        description: User name
+      email:
+        type: string
+        description: User e-mail
+      password:
+        type: string
+        description: User password
+      created:
+        type: number
+        format: int64
+        description: Date/Time that the user was created
+      modified:
+        type: number
+        format: int64
+        description: Last time that the user was updated
+      lastLogin:
+        type: number
+        format: int64
+        description: Last time that the user has logged in
+      token:
+        type: string
+        description: JWT token
+      phones:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: Phone ID
+            ddd:
+              type: string
+              description: Phone DDD
+            number:
+              type: string
+              description: Phone number
+
+  ErrorMessage:
+    type: object
+    properties:
+      message:
+        type: string
+        
+  Credentials:
+    type: object
+    properties:
+      email:
+        type: string
+        format: email
+        description: User email
+      password:
+        type: string
+        description: Plain password
+# Added by API Auto Mocking Plugin
+schemes:
+ - https
+ - http
