@@ -16,6 +16,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -28,12 +29,15 @@ public class User extends BasicModel {
     private static final long serialVersionUID = -1644964757083823585L;
 
     @Size(min = 1)
+    @NotNull
     private String name;
 
     @Size(min = 1)
+    @NotNull
     private String email;
 
     @Size(min = 1)
+    @NotNull
     private String password;
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -15,6 +15,9 @@ public class ErrorMessage implements Serializable {
 	private static final long serialVersionUID = -1810051955871326516L;
 	private String message;
 	
+	public ErrorMessage() {
+    }
+	
 	public ErrorMessage(String message) {
 		this.message = message;
 	}
