@@ -1,6 +1,6 @@
 # spring-auth-api-example
 
-### An simple example of REST API using the following technologies.
+### This is a simple example of REST authentication API using the following technologies.
 
 - Spring MVC
 - Spring Security
@@ -27,7 +27,7 @@ The following endpoints would be available:
 - GET /users/:userId
 - POST /login
 
-Some endpoints require authorization, use the "Authorization" http header to pass the JWT token returned by the /login endpoint.
+Some endpoints require authorization, use the "Authorization" http header to send the JWT token returned by the /login endpoint.
 
 See the detailed documentation on https://app.swaggerhub.com/api/jairelton/spring-auth-api-example/1.0.0
 
