@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.web.BasicErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author jbatista
  */
 @Controller
-@RequestMapping(path = "${server.error.path:${error.path:/error}}", produces = "application/json")
+@RequestMapping(path = "${server.error.path:${error.path:/error}}", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestErrorController extends BasicErrorController {
 
     /**

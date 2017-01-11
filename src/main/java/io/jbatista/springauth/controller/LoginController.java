@@ -6,6 +6,7 @@ package io.jbatista.springauth.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,7 @@ public class LoginController {
      * @throws UnauthorizedException
      *             Invalid credentials.
      */
-    @RequestMapping(path = "/login", method = POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(path = "/login", method = POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public User login(@RequestBody Credentials credentials) throws UnauthorizedException {
         User loggedUser = null;
 

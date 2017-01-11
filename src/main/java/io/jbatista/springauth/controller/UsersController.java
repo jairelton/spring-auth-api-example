@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ import io.jbatista.springauth.service.UserService;
  * @author jbatista
  */
 @RestController
-@RequestMapping(path = "/users", consumes = "application/json", produces = "application/json")
+@RequestMapping(path = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class UsersController {
     @Autowired
     private UserService userService;
@@ -82,7 +83,7 @@ public class UsersController {
      *            Authenticated user.
      * @return Newly updated user.
      * @throws ConflictException
-     *             If the email is already in user by another user.
+     *             If the email is already in use by another user.
      * @throws NotFoundException
      *             If there's no user with the given ID.
      * @throws UnauthorizedException

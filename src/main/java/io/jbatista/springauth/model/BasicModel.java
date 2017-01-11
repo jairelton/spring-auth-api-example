@@ -37,8 +37,8 @@ public abstract class BasicModel implements Serializable {
     public boolean equals(Object obj) {
         boolean eq = false;
 
-        if (obj instanceof Phone) {
-            Phone other = (Phone) obj;
+        if (obj instanceof BasicModel) {
+        	BasicModel other = (BasicModel) obj;
             
             if (getId() == null) {
                 eq = other.getId() == null;
